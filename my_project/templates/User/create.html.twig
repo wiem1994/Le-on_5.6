@@ -1,0 +1,114 @@
+{% extends "base.html.twig" %}
+{% block javascripts%}
+{{ encore_entry_script_tags('user')}}
+{% endblock %}
+{% block body %}
+
+<div class="container">
+<h1 class="create">Bienvenue dans la page de l'Admin </h1>
+
+<div id="fullShow">
+{# {{ form_start(User,{'attr':{'id':'full'}}) }}
+
+ {{ form_row(User.nom, {'attr':{'id':'nom'}})}}
+ {{ form_row(User.prenom, {'attr':{'id':'prenom'}})}}
+ {{ form_row(User.email, {'attr':{'id':'email'}})}}
+{{ form_row(User.password, {'attr':{'id':'password'}})}}
+{{ form_row(User.roles, {'attr':{'id':'roles'}})}}
+<button  name="submit_button" id="submit_butt"  >Ajouter</button>
+{{ form_end(User) }} #}
+
+ <div id="container">
+    <form method="post" action="" id="contactform">
+      <div class="form-group">
+        <label for="name">first name:</label>
+        <input type="text" class="form-control" id="prenom">
+      </div>
+      <div class="form-group">
+        <label >last Name:</label>
+        <input type="text" class="form-control" id="nom">
+      </div>
+      <div class="form-group">
+        <label for="email">Email Address:</label>
+        <input type="email" class="form-control" id="email">
+      </div>
+      <div class="form-group">
+        <label for="message">password:</label>
+        <textarea name="message" class="form-control" id="password"></textarea>
+      </div>
+      <button type="submit" name="submit_button" id="submit_butt"  >Ajouter</button>
+    </form>
+ 
+    <div class="result">
+    </div>
+  </div>
+
+
+<button id="showUsers" >show</button>
+
+</div>
+<table id="show">
+</table>
+
+
+ 
+
+<script>
+
+// var ajax = new XMLHttpRequest();
+// ajax.open("GET", "admin", true);
+// ajax.send();
+// ajax.onreadystatechange = function() {
+//     if (this.readyState == 4 && this.status == 200) {
+//        var div = document.getElementById('demo');
+//      div.innerHTML += this.responseText;
+//     }
+// };
+
+$(document).ready(function() {
+    $("#showUsers").click(function() {
+        $("#show").load("http://localhost:8000/users");
+    });
+});
+
+
+$(document).ready(function () {
+
+        $('#submit_butt').click(function (e) {
+
+            e.preventDefault();
+
+            var nom = $('#nom').val();
+
+            var prenom = $('#prenom').val();
+
+            var email = $('#email').val();
+
+            var password = $('#password').val();
+
+            // var roles = $('#roles').val();
+
+            $.ajax
+
+                ({
+
+                    type: "POST",
+
+                    url: "admin",
+
+                    data: { "nom": nom, "email": email, "prenom": prenom, "password" : password },
+                    
+                    success: function (data) {
+alert('hello')
+                        $('.result').html(data);
+
+                        $('#contactform')[0].reset();
+
+                    }
+
+                });
+        });
+    });
+</script> 
+
+{% endblock %} 

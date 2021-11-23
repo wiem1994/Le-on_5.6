@@ -1,0 +1,21 @@
+{% extends "base.html.twig" %}
+{% block title %}Profil{% endblock %}
+
+{% block body %}
+{% if app.user %}
+<h1>Bienvenue dans votre profil {{app.user.nom}} {{app.user.prenom}}</h1>
+<hr>
+<a href={{path('conge_user',{'id':app.user.id})}}><button>Demander un congé</button></a>
+</br>
+</br>
+<a href={{path('historique_user',{'id':app.user.id})}}><button>Voir historique de vos demandes de congé</button></a>
+</br>
+</br>
+{{form(form)}}
+</br>
+</br>
+<a href="{{path('security_logout')}}"><button>logout</button></a>
+{% else %}
+<h1>Vous n'avez pas l'accès à cette page...</h1>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html.twig" %}
+{% block javascripts%}
+{{ encore_entry_script_tags('user')}}
+{% endblock %}
+{% block body %}
+
+
+ <h3>La liste des utilisateurs</h3>
+
+ <table width="50%" border="1" cellspacing="1" cellpadding="7" class="table Pseudo" id="show">
+ 
+<tr>
+    <th>Nom</th>
+    <th>Prénom</th>
+    <th>Email</th>
+</tr> 
+  {% for user in users %}
+  <tr>
+    <td>{{ user.nom|e }}</td>
+    <td>{{ user.prenom|e }}</td>
+    <td>{{ user.email|e }}</td>
+    {% endfor %}
+</table>
+  
+</div>
+
+<a href="{{path('security_logout')}}"><button>logout</button></a>
+
+
+{% endblock %}   
